@@ -25,6 +25,8 @@ shinyUI(
     
     # Create a spot for the barplot
     
-    mainPanel(plotOutput("VaRPlot"))
+    mainPanel(plotOutput("VaRPlot"), 
+              plotOutput("TimeSeries"))
+    
     )
   )
