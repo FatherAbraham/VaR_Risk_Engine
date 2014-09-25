@@ -2,7 +2,7 @@
 
 require("quantmod")
 require(PerformanceAnalytics)
-library(ggplot2)
+
 
 portfolio <- c("AA", "AXP", "BA", "BAC", "CAT", "CSCO")
 begin <- Sys.Date() - 252 ## doesn't actually get 252 entries so the logic here needs improving
@@ -19,8 +19,12 @@ dataset_AA <- dataset[,1]
 ##could probebly do with turning into percentage....
 returns_AA <- Return.calculate(dataset_AA, method=c("simple"))
 
-##plot loss experience
-qplot(data=returns_AA, aes(x=AA.Adjusted)) + geom_bar(stat='bin', color='black', fill='red')
+##show timeseries using quantmod package
+chartSeries(returns_AA)
+
+##from Performance Analytics, plot histogram
+chart.Histogram(returns_AA, methods = c("add.risk"))
+chart.VaRSensitivity(returns_AA)
 
 ##next step, look for the 5th percentile, 95% of the time we don't lose more than this
 ##doesn't tell us about the magnitude of our loss (consult the essay)
@@ -33,8 +37,11 @@ sorted <- returns_AA.m[order(returns_AA.m[,1])]
 ##calculate the 95% percentile <- Double-check this!
 quantile(returns_AA.m[order(returns_AA.m[,1])], c(.95), na.rm=TRUE)
 
+
+##different resultset from above
+
 ## what about skew and kurtosis
-## plot distribution and show quantil
+
 
 
 
