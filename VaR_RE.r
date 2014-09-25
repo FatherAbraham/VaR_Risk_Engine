@@ -2,6 +2,7 @@
 
 require("quantmod")
 require(PerformanceAnalytics)
+library(ggplot2)
 
 portfolio <- c("AA", "AXP", "BA", "BAC", "CAT", "CSCO")
 begin <- Sys.Date() - 252 ## doesn't actually get 252 entries so the logic here needs improving
@@ -19,7 +20,7 @@ dataset_AA <- dataset[,1]
 returns_AA <- Return.calculate(dataset_AA, method=c("simple"))
 
 ##plot loss experience
-ggplot(data=returns_AA, aes(x=AA.Adjusted)) + geom_bar(stat='bin', color='black', fill='red')
+qplot(data=returns_AA, aes(x=AA.Adjusted)) + geom_bar(stat='bin', color='black', fill='red')
 
 ##next step, look for the 5th percentile, 95% of the time we don't lose more than this
 ##doesn't tell us about the magnitude of our loss (consult the essay)
@@ -33,6 +34,7 @@ sorted <- returns_AA.m[order(returns_AA.m[,1])]
 quantile(returns_AA.m[order(returns_AA.m[,1])], c(.95), na.rm=TRUE)
 
 ## what about skew and kurtosis
+## plot distribution and show quantil
 
 
 
@@ -46,4 +48,3 @@ dataset <- merge(dataset, Ad(get(tickers[i])))
 
 
 
-dmat[order(dmat[,1])]
