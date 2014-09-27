@@ -5,19 +5,19 @@ output: html_document
 
 **Introduction**
 
-My recent article focused on using R to perform some basic exploratory data analysis.   
+My recent article focused on using R to perform some basic exploratory data analysis.[^1]   
 
 The focus of this article will be to highlight some packages that focus on financial analytics (TTR, quantmod and PerformanceAnalytics) and a package that will allow us to build an interactive UI with a package called Shiny.
 
-For this article we will focus on Value at Risk[^1], a common market risk measure developed by JP Morgan and most recently criticized by Nassim Taleb .
+For this article we will focus on Value at Risk[^2], a common market risk measure developed by JP Morgan and most recently criticized by Nassim Taleb [^3].
 
 **Simple Historical Simulation Methodology**
 
-For the first part of this article I will walk through the methodology of calculating VaR for a single-stock using the historical simulation method (as opposed to the Monte Carlo or parametric method). 
+For the first part of this article I will walk through the methodology of calculating VaR for a single-stock using the historical simulation method (as opposed to the Monte Carlo or parametric method) [^4]. 
 
 VaR allows a risk manager to make a statement about a maximum loss over a specified horizon at a certain confidence level.
 
-V will be the Value at Risk; N will be the horizon, and X the confidence level.  
+V will be the Value at Risk for a one day horizon at a 95% confidence level.  
 
 Briefly, this method is:  retrieve and sort a returns timeseries from a specified period (usually 500 days) and take a specific quantile and you will have the Value at Risk for that position.   
 
@@ -110,7 +110,7 @@ shinyUI(
     
     titlePanel("NYSE Banking Stocks - VaR Calculator"),        
     
-    # Generate a row with a sidebar, calling the sidebar "Instrument" and populating the choices with the content of the vector SYMs
+    # Generate a row with a sidebar, calling the sidebar "Instrument" and populating the choices with the vector SYMs
     
     sidebarLayout(
       
@@ -148,7 +148,7 @@ shinyServer(function(input, output){
     dataset <- dataset[,1]
     returns <- Return.calculate(dataset, method=c("simple"))
     
-    ##this time use the quantmod package that creates the histogram and adds 95% VaR using the add.risk method
+    ##use the quantmod package that creates the histogram and adds 95% VaR using the add.risk method
     
     chart.Histogram(returns, methods = c("add.risk"))
    
@@ -159,8 +159,9 @@ shinyServer(function(input, output){
 
 In RStudio, you will then see the button "Run App", which after clicking will run your new and Shiny app.
 
+![app](figures/shiny_app.jpeg)
 
-<img src="figures/shiny_app.tiff" />
-
-
-[^1]: http://en.wikipedia.org/wiki/Value_at_risk
+[^1]: http://www.broadgateconsultants.com/blog/2014/08/31/big-data-analysis-an-example-of-using-r/
+[^2]: http://en.wikipedia.org/wiki/Value_at_risk
+[^3]: http://www.futuresmag.com/2010/12/01/var-the-number-that-killed-us
+[^4]: Main sources are Hulls' "Options, Futures and other derivatives"  (http://www.amazon.co.uk/Options-Futures-Other-Derivatives-John/dp/0273759078) and Bionicturtles' excellent video (https://www.youtube.com/watch?v=yiyqIEWieEQ)
