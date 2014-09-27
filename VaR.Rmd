@@ -1,6 +1,6 @@
 ---
 title: "VaR"
-output: html_document
+output: word_document
 ---
 
 **Introduction**
@@ -11,7 +11,9 @@ The focus of this article will be to highlight some packages that focus on finan
 
 For this article we will focus on Value at Risk[^2], a common market risk measure developed by JP Morgan and most recently criticized by Nassim Taleb [^3].
 
-**Simple Historical Simulation Methodology**
+
+
+**Historical Simulation - Methodology**
 
 For the first part of this article I will walk through the methodology of calculating VaR for a single-stock using the historical simulation method (as opposed to the Monte Carlo or parametric method) [^4]. 
 
